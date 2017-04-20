@@ -1,5 +1,7 @@
 import '../style/app.css';
-// import users from '../mock/users.js'
+import users from '../mock/users.js'
+
+console.log('mock', users);
 
 import { getUsers }  from './users-service';
 import { UserList } from './user-list';

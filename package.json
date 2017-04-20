@@ -1,14 +1,12 @@
 {
-  "name": "angular-webpack-workflow",
-  "version": "1.1.0",
-  "description": "A workflow for Angular made with Webpack",
+  "name": "ES6",
+  "version": "1.0.0",
+  "description": "Simple",
   "scripts": {
-    "build": "rimraf dist && webpack --bail --progress --profile",
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
     "start": "npm run server"
   },
-  "author": "Jesus Rodriguez",
-  "license": "MIT",
+  "author": "Vlad",
   "dependencies": {
   },
   "devDependencies": {
