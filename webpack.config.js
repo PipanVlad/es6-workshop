@@ -30,7 +30,7 @@ module.exports = function makeWebpackConfig() {
    * Should be an empty object if it's generating a test build
    * Karma will handle setting it up for you when it's a test build
    */
-  config.output = isTest ? {} : {
+  config.output = {
     // Absolute output directory
     path: __dirname + '/dist',
 
@@ -52,15 +52,7 @@ module.exports = function makeWebpackConfig() {
    * Reference: http://webpack.github.io/docs/configuration.html#devtool
    * Type of sourcemap to use per build type
    */
-  if (isTest) {
-    config.devtool = 'inline-source-map';
-  }
-  else if (isProd) {
-    config.devtool = 'source-map';
-  }
-  else {
-    config.devtool = 'eval-source-map';
-  }
+  config.devtool = 'eval-source-map';
 
   /**
    * Loaders
@@ -118,25 +110,6 @@ module.exports = function makeWebpackConfig() {
     }]
   };
 
-  // ISTANBUL LOADER
-  // https://github.com/deepsweet/istanbul-instrumenter-loader
-  // Instrument JS files with istanbul-lib-instrument for subsequent code coverage reporting
-  // Skips node_modules and files that end with .spec.js
-  if (isTest) {
-    config.module.rules.push({
-      enforce: 'pre',
-      test: /\.js$/,
-      exclude: [
-        /node_modules/,
-        /\.spec\.js$/
-      ],
-      loader: 'istanbul-instrumenter-loader',
-      query: {
-        esModules: true
-      }
-    })
-  }
-
   /**
    * PostCSS
    * Reference: https://github.com/postcss/autoprefixer-core
@@ -161,45 +134,19 @@ module.exports = function makeWebpackConfig() {
     })
   ];
 
-  // Skip rendering index.html in test mode
-  if (!isTest) {
-    // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
-    config.plugins.push(
-      new HtmlWebpackPlugin({
-        template: './src/index.html',
-        inject: 'body'
-      }),
+  // Reference: https://github.com/ampedandwired/html-webpack-plugin
+  // Render index.html
+  config.plugins.push(
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      inject: 'body'
+    }),
 
-      // Reference: https://github.com/webpack/extract-text-webpack-plugin
-      // Extract css files
-      // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: 'css/[name].css', allChunks: true})
-    )
-  }
-
-  // Add build specific plugins
-  if (isProd) {
-    config.plugins.push(
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-      // Only emit files when there are no errors
-      new webpack.NoErrorsPlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-      // Dedupe modules in the output
-      new webpack.optimize.DedupePlugin(),
-
-      // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-      // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin(),
-
-      // Copy assets from the public folder
-      // Reference: https://github.com/kevlened/copy-webpack-plugin
-      new CopyWebpackPlugin([{
-        from: __dirname + '/src'
-      }])
-    )
-  }
+    // Reference: https://github.com/webpack/extract-text-webpack-plugin
+    // Extract css files
+    // Disabled when in test mode or not in build mode
+    new ExtractTextPlugin({filename: 'css/[name].css', allChunks: true})
+  )
 
   /**
    * Dev server configuration
