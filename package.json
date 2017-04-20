@@ -7,8 +7,7 @@
     "start": "npm run server"
   },
   "author": "Vlad",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.0.3",
     "babel-core": "^6.2.1",
@@ -27,6 +26,9 @@
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.1",
     "style-loader": "^0.13.0",
+    "ts-loader": "^2.0.3",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2",
     "webpack": "2.2.0",
     "webpack-dev-server": "2.2.0"
   }

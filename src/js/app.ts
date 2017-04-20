@@ -1,5 +1,7 @@
+'use strict';
+
 import '../style/app.css';
-import users from '../mock/users.js'
+import users from '../mock/users'
 
 console.log('mock', users);
 
@@ -30,7 +32,7 @@ getUsers()
         console.log(error);
     });
 
-var checkboxes = document.body.querySelectorAll('[name="gender"]');
+var checkboxes: any = document.body.querySelectorAll('[name="gender"]');
 
 for ( let checkbox of checkboxes ) {
     checkbox.addEventListener('click', evt => test.sortBy(userList))

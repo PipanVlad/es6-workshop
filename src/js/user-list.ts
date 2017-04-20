@@ -1,5 +1,5 @@
 export class UserList {
-    constructor(usersElement) {
+    constructor(public usersElement) {
         this.usersElement = usersElement
     }
 
@@ -16,7 +16,7 @@ export class UserList {
     }
 
     sortBy(userList) {
-        var checkbox = document.body.querySelector('[name="gender"]:checked').value;
+        var checkbox = (<HTMLInputElement>document.body.querySelector('[name="gender"]:checked')).value;
 
         this.usersElement.innerHTML = '';
 
