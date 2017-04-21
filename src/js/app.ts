@@ -1,39 +1,33 @@
-'use strict';
 
+// import styling
 import '../style/app.css';
-import users from '../mock/users'
 
-console.log('mock', users);
+// import mock data
+import mock from '../mock/users';
 
-import { getUsers }  from './users-service';
-import { UserList } from './user-list';
+import { userActions } from './user-actions';
 
-var userList = [];
-var hello = document.body.querySelector('h1');
-var usersElement = document.body.querySelector('.userList');
+import { Person } from './interface';
 
-// append message to title
+var users: Array<any> = mock.users;
+var heading = document.body.querySelector('.heading > h1');
+var userList = document.body.querySelector('.userList');
+// append message to element
 var appendMessage = function(element, text) {
-    element.innerHTML = element.innerHTML + ' ' + text;
+    element.innerHTML = `${ element.innerHTML } ${ text }`;
+};
+
+var actions = new userActions(userList);
+
+appendMessage(heading, 'Test');
+
+// create intial user list
+for ( let user of  users) {
+    actions.createUser(user);
 }
-appendMessage(hello, 'test');
 
-var test = new UserList(usersElement);
+var radioboxes: any = document.body.querySelectorAll('[name="gender"]')
 
-// get userList
-getUsers()
-    .then((users) => {
-        userList = users;
-        for (var user of userList ) {
-            test.createUserList(user)
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-
-var checkboxes: any = document.body.querySelectorAll('[name="gender"]');
-
-for ( let checkbox of checkboxes ) {
-    checkbox.addEventListener('click', evt => test.sortBy(userList))
+for ( let radiobox of radioboxes ) {
+    radiobox.addEventListener('click', evt => actions.sortBy(users));
 }
