@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple",
   "scripts": {
-    "server": "webpack-dev-server --history-api-fallback --inline --progress --host 0.0.0.0 --port 9999",
+    "server": "webpack-dev-server --history-api-fallback --inline --progress --host 0.0.0.0 --port 8080",
     "start": "npm run server"
   },
   "author": "Vlad",
